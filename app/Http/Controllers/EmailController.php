@@ -34,7 +34,8 @@ class EmailController extends Controller
         );
         //echo "<pre>";print_r($params);exit;
         $response = sendmail($params);
-        return response()->json($response);
+        //return response()->json($response);
+        echo "email sent";
     }
 
 }

@@ -3,9 +3,7 @@
 namespace App\Providers;
 
 use Illuminate\Support\ServiceProvider;
-use Illuminate\Mail\Mailer;
 use Illuminate\Support\Arr;
-use Illuminate\Contracts\View\Factory as ViewFactory;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -29,13 +27,6 @@ class AppServiceProvider extends ServiceProvider
             $transport->setEncryption($smtp_encryption);
 
             $swift_mailer = new \Swift_Mailer($transport);
-            //print_r($app);exit;
-            //$mailer = new Mailer('',view('emails.default-mailer'), $swift_mailer, $app->get('events'));
-            //$mailer = new Mailer('emails.default-mailer',$app->get('view'), $swift_mailer, $app->get('events'));
-            //$mailer = new Mailer(view('emails.default-mailer',['data' =>['content' => ""]]), $swift_mailer);
-            //$mailer = new Mailer(app('view')->addNamespace('mail', resource_path('views') . '/emails'), $swift_mailer);
-            //$mailer->alwaysFrom($from_email, $from_name);
-            //$mailer->alwaysReplyTo($from_email, $from_name);
 
             return $swift_mailer;
         });

@@ -26,7 +26,7 @@ return [
         'smtp_username'  => 'SMTP-USERNAME-HERE',
         'smtp_password'  => 'SMTP-PASSWORD-HERE',
         'smtp_encryption'  => 'tls',
-        'from_email'    => 'noreply@mycompany.com',
+        'from_email'    => 'abhi.upss@gmail.com',
         'from_name'    => 'EmailService',
     ]
 ];

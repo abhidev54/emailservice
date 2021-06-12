@@ -37,20 +37,16 @@ class MailerJob implements ShouldQueue
   */
   public function handle()
   {
-    $config = $this->getSmtpConfig();
-    $mailer = app()->makeWith('user.mailer', $config);
-    $response = CustomMail::send($mailer, $this->params);
-    //$response = $mailer->to($this->params['to'])->send(new AppMailer($this->params));
-  }
+    // Send email
+    $config = CustomMail::getSmtpConfig();
+    $response = CustomMail::prepare($config,$this->params);
 
-  public function getSmtpConfig($failedcount = 0) {
-    $smtp_config = array();
-    $config = app('config')->get('mail', []);
-    if(is_array($config) && count($config) > 0){
-        $smtp_config = $config[$failedcount];
+    if($response) {
+      // Success
+      Log::info("Email sent successfully using default smtp provider!");
     } else {
-        Log::error("No SMTP providers configured in config/mail.php");
+      Log::error("Error occured while sending email using default smtp provider, Activating fallback mechanism");
+  
     }
-    return $smtp_config;
   }
 }

@@ -5,6 +5,7 @@ namespace App\Providers;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Mail\Mailer;
 use Illuminate\Support\Arr;
+use Illuminate\Contracts\View\Factory as ViewFactory;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -22,12 +23,6 @@ class AppServiceProvider extends ServiceProvider
             $smtp_password = Arr::get($parameters, 'smtp_password');
             $smtp_encryption = Arr::get($parameters, 'smtp_encryption');
 
-            $from_email = Arr::get($parameters, 'from_email');
-            $from_name = Arr::get($parameters, 'from_name');
-
-            $from_email = $parameters['from_email'];
-            $from_name = $parameters['from_name'];
-
             $transport = new \Swift_SmtpTransport($smtp_host, $smtp_port);
             $transport->setUsername($smtp_username);
             $transport->setPassword($smtp_password);
@@ -35,13 +30,14 @@ class AppServiceProvider extends ServiceProvider
 
             $swift_mailer = new \Swift_Mailer($transport);
             //print_r($app);exit;
-            $mailer = new Mailer($app->get('view'), $swift_mailer, $app->get('events'));
+            //$mailer = new Mailer('',view('emails.default-mailer'), $swift_mailer, $app->get('events'));
+            //$mailer = new Mailer('emails.default-mailer',$app->get('view'), $swift_mailer, $app->get('events'));
             //$mailer = new Mailer(view('emails.default-mailer',['data' =>['content' => ""]]), $swift_mailer);
             //$mailer = new Mailer(app('view')->addNamespace('mail', resource_path('views') . '/emails'), $swift_mailer);
-            $mailer->alwaysFrom($from_email, $from_name);
-            $mailer->alwaysReplyTo($from_email, $from_name);
+            //$mailer->alwaysFrom($from_email, $from_name);
+            //$mailer->alwaysReplyTo($from_email, $from_name);
 
-            return $mailer;
+            return $swift_mailer;
         });
     }
 }

@@ -25,21 +25,7 @@ class AppMailer extends Mailable
      */
     public function __construct(array $params)
     {
-        $this->params        = $params;
-        $this->data          = isset($this->params['data']) ? $this->params['data'] : '';
-
-        $this->subject       = isset($this->params['subject']) ? $this->params['subject'] : '';
-
-        $this->from_email    = isset($this->params['from_email']) ?
-            $this->params['from_email'] : 'noreply@example.com';
-
-        $this->from_name     = isset($this->params['from_name']) ?
-            $this->params['from_name'] : 'EXAMPLE';
-
-        $this->template     =  $this->params['template'];
-
-        $this->template_type = isset($this->params['template_type']) ?
-            $this->params['template_type'] : 'view';
+        $this->params  = $params;
     }
 
     /**
@@ -49,7 +35,7 @@ class AppMailer extends Mailable
      */
     public function build()
     {
-        if ($this->template_type == 'view') {
+        if ($this->params['template_type'] == 'view') {
 
             return $this->view($this->template)
                 ->from($this->from_email, $this->from_name)

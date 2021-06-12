@@ -2,8 +2,6 @@
 
 
 use App\Jobs\MailerJob;
-use App\Jobs\UserMailerJob;
-use App\Mail\AppMailer;
 
 if (!function_exists('sendmail')) {
 

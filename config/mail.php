@@ -17,7 +17,7 @@ return [
         'smtp_username'  => 'e3a07da7a970e2c85bc3358c686a88b0',
         'smtp_password'  => '1b82793fb80e0cf52988b219a8cd4de5',
         'smtp_encryption'  => 'tls',
-        'from_email'    => 'noreply@mycompany.com',
+        'from_email'    => 'abhi.upss@gmail.com',
         'from_name'    => 'EmailService',
     ],
     [

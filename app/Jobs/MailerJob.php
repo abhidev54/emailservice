@@ -7,6 +7,7 @@ use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Mail\Mailable;
 use App\Mail\AppMailer;
+use App\Mail\CustomMail;
 use Illuminate\Support\Facades\Log;
 
 class MailerJob implements ShouldQueue
@@ -16,7 +17,7 @@ class MailerJob implements ShouldQueue
   public $configuration;
   public $to;
   public $mailable;
-
+  public $params;
   /**
   * Create a new job instance.
   *
@@ -38,7 +39,8 @@ class MailerJob implements ShouldQueue
   {
     $config = $this->getSmtpConfig();
     $mailer = app()->makeWith('user.mailer', $config);
-    $response = $mailer->to($this->params['to'])->send(new AppMailer($this->params));
+    $response = CustomMail::send($mailer, $this->params);
+    //$response = $mailer->to($this->params['to'])->send(new AppMailer($this->params));
   }
 
   public function getSmtpConfig($failedcount = 0) {

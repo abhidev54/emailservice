@@ -11,7 +11,7 @@ if (!function_exists('insert_email_history')) {
 	 * Get email history
 	 */
 	function get_email_history() {
-		return EmailHistory::get();
+		return EmailHistory::orderByDesc("updated_at")->get();
 	}
 
 	/**

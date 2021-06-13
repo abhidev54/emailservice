@@ -9,7 +9,6 @@ if (!function_exists('sendmail')) {
 		$success = false;
 		$job_id = 0;
 		try {	
-			//$job = dispatch(new MailerJob($data));
 			$job_id = app(\Illuminate\Contracts\Bus\Dispatcher::class)->dispatch(new MailerJob($data));
 			$success = true;
 			$message = "Email has been sent successfully";

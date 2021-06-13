@@ -3,7 +3,9 @@
 namespace App\Providers;
 
 use Illuminate\Support\ServiceProvider;
+use Illuminate\Mail\Mailer;
 use Illuminate\Support\Arr;
+use Illuminate\Contracts\View\Factory as ViewFactory;
 
 class AppServiceProvider extends ServiceProvider
 {

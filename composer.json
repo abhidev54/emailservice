@@ -17,7 +17,8 @@
     },
     "autoload": {
         "files": [
-            "app/Helpers/MailHelper.php"
+            "app/Helpers/MailHelper.php",
+            "app/Helpers/EmailsHistoryHelper.php"
         ],
         "psr-4": {
             "App\\": "app/",

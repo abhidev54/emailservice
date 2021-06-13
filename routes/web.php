@@ -17,4 +17,8 @@ $router->get('/', function () use ($router) {
     return $router->app->version();
 });
 
+// For sending email
 $router->post('/mail/send','EmailController@send');
+
+// For email history
+$router->get('/mail/history','EmailController@history');

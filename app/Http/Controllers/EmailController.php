@@ -16,29 +16,6 @@ class EmailController extends Controller
        
     }
 
-    /**
-     * Function to send email
-     */
-    public function send1(Request $request)
-    {
-        $params = array(
-            "data" => array(
-                "content" => $request->input("message")
-            ),
-            "to" => $request->input("to"),
-            "from_email" => $request->input("from_email"),
-            "from_name" => $request->input("from_name"),
-            "subject" => $request->input("subject"),
-            "template_type" => 'markdown',
-            "template" => env('MAIL_DEFAULT_TEMPLATE')
-        );
-        //echo "<pre>";print_r($params);exit;
-        $response = sendmail($params);
-        //return response()->json($response);
-        echo "email sent";
-    }
-
-
     public function send(Request $request)
     {
         $params = array(
@@ -51,8 +28,22 @@ class EmailController extends Controller
         );
         //echo "<pre>";print_r($params);exit;
         $response = sendmail($params);
-        //return response()->json($response);
-        echo "email sent";
+
+        // Insert in email history table
+        if($response['success']) {
+            $params['job_id'] = $response['job_id'];
+            $params['status'] = "queued";
+            insert_email_history($params);
+        }
+        return response()->json($response);
+
+    }
+
+    
+    public function history(Request $request)
+    {
+        $history = get_email_history();
+        return response()->json($history);
     }
 
 }

@@ -34,6 +34,7 @@ class CustomMail
       }
     
       public static function processViaFallback($failedcount = 0, $params) {
+        $response = false;
         $config = app('config')->get('mail', []);
         if(is_array($config) && count($config) > 0){
           for ($i=1; $i < count($config); $i++) { 
@@ -41,12 +42,15 @@ class CustomMail
             $config = self::getSmtpConfig($i);
             $response = self::prepare($config,$params);
     
-            if($response) break;
-            else continue;
+            if($response) {
+              return $response;
+            } else 
+              continue;
           }
         } else {
           Log::error("No Fallback SMTP providers configured in config/mail.php");
         }
+        return $response;
       }
 
       

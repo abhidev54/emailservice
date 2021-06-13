@@ -7,9 +7,10 @@ if (!function_exists('sendmail')) {
 
 	function sendmail(array $data) {
 		$success = false;
+		$job_id = 0;
 		try {	
-			dispatch(new MailerJob($data));
-			//UserMailerJob::dispatch($configuration, 'recipient', new AppMailer($data));
+			//$job = dispatch(new MailerJob($data));
+			$job_id = app(\Illuminate\Contracts\Bus\Dispatcher::class)->dispatch(new MailerJob($data));
 			$success = true;
 			$message = "Email has been sent successfully";
 		} catch (\Exception $e) {
@@ -18,6 +19,7 @@ if (!function_exists('sendmail')) {
 		}
 		$result = array(
 			"success" => $success,
+			"job_id" => $job_id,
 			"message" => $message
 		);
 		return $result;

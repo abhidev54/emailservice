@@ -42,11 +42,27 @@ class MailerJob implements ShouldQueue
     $response = CustomMail::prepare($config,$this->params);
 
     if($response) {
-      // Success
-      Log::info("Email sent successfully using default smtp provider!");
+      // Update the delivered status in history table
+      $this->update_status($this->job->getJobId(),'delivered');
+
+      Log::info("Email sent successfully using default smtp provider! , JOB ID : ".$this->job->getJobId());
     } else {
-      Log::error("Error occured while sending email using default smtp provider, Activating fallback mechanism");
-  
+      Log::error("Error occured while sending email using default smtp provider, Activating fallback mechanism , JOB ID : ".$this->job->getJobId());
+      $response = CustomMail::processViaFallback(1,$this->params);
+
+      if($response) {
+        // Update the delivered status in history table
+        $this->update_status($this->job->getJobId(),'delivered');
+      } else {
+        // Update the delivered status in history table
+        $this->update_status($this->job->getJobId(),'bounced');
+      }
     }
+  }
+
+
+  public function update_status($job_id, $status) {
+    $this->params['status'] = $status;
+    $response = update_history($job_id,$this->params);
   }
 }

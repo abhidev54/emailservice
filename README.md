@@ -1,4 +1,4 @@
-# Email Microservice (Dev in progress)
+# Email Microservice
 
 
 # Installation using docker
@@ -25,6 +25,8 @@
 6- Start queue processor in new terminal
    php artisan queue:work
 
+# Postman collection (incase you want to check via postman however i have created VUEJS application, repo : https://github.com/abhidev54/emailservice-portal)
+https://www.getpostman.com/collections/d88e937e9039434543e3
 
 Screenshots :
 

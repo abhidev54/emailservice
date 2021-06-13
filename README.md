@@ -1,18 +1,29 @@
 # Email Microservice (Dev in progress)
 
-Email service used to send emails. 
 
-**Completed items**
+# Installation using docker
+1- Clone the project using git command
+    git clone https://github.com/abhidev54/emailservice.git
+2- Update mysql database credentials in .env file
+3- go to emailservice directory and run docker command
+   docker-compose --env-file .env up --build
+4-  For database migration
+    docker-compose exec app php artisan migrate
+5- Start queue processor in new terminal
+    docker-compose exec app php artisan queue:work
 
-* Send emails (I have used postman collection to test this service, postman collection given below) 
-https://www.getpostman.com/collections/d88e937e9039434543e3
-*  Custom mailer
-
-**Pending item**
-
-* Docker file creation in root directory for docker image
-* Creating of vuejs application
-* Also email logging in database to show the statused of email.
+# Installation without using docker
+1- Clone the project using git command
+    git clone https://github.com/abhidev54/emailservice.git
+2- go to emailservice directory and run below commands
+   composer install
+3- Update mysql database credentials in .env file
+4- Run database migration command
+   php artisan migrate
+5- Start the server
+   php -S lumen:8000 -t public
+6- Start queue processor in new terminal
+   php artisan queue:work
 
 
 Screenshots :

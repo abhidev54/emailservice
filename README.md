@@ -8,9 +8,9 @@
 3- go to emailservice directory and run docker command
    docker-compose --env-file .env up --build
 4-  For database migration
-    docker-compose exec app php artisan migrate
+    docker-compose exec emailservice_lumen_1 php artisan migrate
 5- Start queue processor in new terminal
-    docker-compose exec app php artisan queue:work
+    docker-compose exec emailservice_lumen_1 php artisan queue:work
 
 # Installation without using docker
 1- Clone the project using git command
@@ -27,6 +27,9 @@
 
 # Postman collection (incase you want to check via postman however i have created VUEJS application, repo : https://github.com/abhidev54/emailservice-portal)
 https://www.getpostman.com/collections/d88e937e9039434543e3
+
+# VUE JS application (For this follow repo and build it , https://github.com/abhidev54/emailservice-portal)
+http://localhost:8080/
 
 Screenshots :
 
